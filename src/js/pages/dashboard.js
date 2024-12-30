@@ -1,6 +1,7 @@
 const Dashboard = {
   async init() {
     await this._initialData();
+    this._initialListener();
   },
  
   async _initialData() {
@@ -9,6 +10,19 @@ const Dashboard = {
     this._userTransactionsHistory = responseRecords.results.transactionsHistory;
     this._populateTransactionsRecordToTable(this._userTransactionsHistory);
     this._populateTransactionsDataToCard(this._userTransactionsHistory);
+  },
+
+  _initialListener() {
+    const recordDetailModal = document.getElementById('recordDetailModal');
+    recordDetailModal.addEventListener('show.bs.modal', (event) => {
+      const modalTitle = recordDetailModal.querySelector('.modal-title');
+      modalTitle.focus();
+      const button = event.relatedTarget;
+      const dataRecord = this._userTransactionsHistory.find((item) => {
+        return item.id == button.dataset.recordId;
+      });
+      this._populateDetailTransactionToModal(dataRecord);
+    });
   },
  
   _populateTransactionsDataToCard(transactionsHistory = null) {
@@ -63,6 +77,25 @@ const Dashboard = {
     transactionsHistory.forEach((item, idx) => {
       recordBodyTable.innerHTML += this._templateBodyTable(idx, transactionsHistory[idx]);
     });
+  },
+
+  _populateDetailTransactionToModal(transactionRecord) {
+    if (!(typeof transactionRecord === 'object')) {
+      throw new Error(`Parameter transactionRecord should be an object. The value is ${transactionRecord}`);
+    }
+    const imgDetailRecord = document.querySelector('#recordDetailModal #imgDetailRecord');
+    const typeDetailRecord = document.querySelector('#recordDetailModal #typeDetailRecord');
+    const nameDetailRecord = document.querySelector('#recordDetailModal #nameDetailRecord');
+    const dateDetailRecord = document.querySelector('#recordDetailModal #dateDetailRecord');
+    const amountDetailRecord = document.querySelector('#recordDetailModal #amountDetailRecord');
+    const descriptionDetailRecord = document.querySelector('#recordDetailModal #noteDetailRecord');
+    imgDetailRecord.setAttribute('src', transactionRecord.evidenceUrl);
+    imgDetailRecord.setAttribute('alt', transactionRecord.name);
+    typeDetailRecord.textContent = transactionRecord.type === 'income' ? 'Pemasukan' : 'Pengeluaran';
+    nameDetailRecord.textContent = transactionRecord.name;
+    dateDetailRecord.textContent = transactionRecord.date;
+    amountDetailRecord.textContent = transactionRecord.amount;
+    descriptionDetailRecord.textContent = transactionRecord.description || '-';
   },
  
   _templateBodyTable(index, transactionRecord) {
