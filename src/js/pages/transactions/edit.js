@@ -7,10 +7,12 @@ const Edit = {
    
     async _initialData() {
       const transactionId = Number(this._getTransactionId());
+
+      
    
    
       if (!transactionId) {
-        alert('Data dengan id yang dicari tidak ditemukan');
+        this._appendAlert('Id yang dicari tidak ada!', 'danger')
         return;
       }
    
@@ -25,6 +27,22 @@ const Edit = {
    
       this._populateTransactionToForm(dataRecord);
     },
+
+    _appendAlert(message, type) {
+      const alertPlaceholder = document.getElementById('alertPlaceholder')
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+`
+<div class="alert alert-${type}" role="alert">
+  ${message}
+</div>
+`
+
+      ].join('')
+    
+      alertPlaceholder.append(wrapper)
+    },
+
    
    
     _initialListener() {
