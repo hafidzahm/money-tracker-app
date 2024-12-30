@@ -75,7 +75,10 @@ const Dashboard = {
         <td>${transactionRecord.date}</td>
         <td>
           <div class="d-flex justify-content-center align-items-center gap-2">
-            <a class="btn btn-sm btn-primary" href="#">
+            <a class="btn btn-sm btn-primary"
+            data-bs-toggle="modal" data-bs-target="#recordDetailModal" 
+            data-record-id="${transactionRecord.id}"
+            >
               <i class="bi bi-eye-fill me-1"></i>Show
             </a>
             <a class="btn btn-sm btn-warning" href="/transactions/edit.html?id=${transactionRecord.id}">
