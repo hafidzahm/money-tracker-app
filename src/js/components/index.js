@@ -8,3 +8,8 @@ import './NavLinkAuth';
 import './FooterApp';
 
 import './form/InputWithValidation';
+import './form/TextareaWithValidation';
+import './form/InputGroupWithValidation';
+import './form/InputImageWithPreview';
+import './form/InputRadioWithValidation';
+import './form/RadioItem';
