@@ -11,6 +11,7 @@ class FooterApp extends LitWithoutShadowDom {
   render() {
     return html`
       <p class="text-center text-white mb-0">
+      <locale-picker class="d-block mb-3"></locale-picker>
         ${msg(`Dibuat dengan ❤ oleh Dicoding Indonesia`)}
       </p>
     `;

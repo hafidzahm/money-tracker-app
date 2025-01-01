@@ -7,6 +7,8 @@ import './NavLink';
 import './NavLinkAuth';
 import './FooterApp';
 
+import './LocalePicker'
+
 import './form/InputWithValidation';
 import './form/TextareaWithValidation';
 import './form/InputGroupWithValidation';
